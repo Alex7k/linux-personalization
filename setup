@@ -1,0 +1,29 @@
+sudo apt update
+sudo apt upgrade
+
+sudo apt install -y $(grep -vE '^\s*(#|$)' ./packages.txt) # fancy way to install all packages in ./packages.txt
+
+git config --global user.name "Alex7k"
+git config --global user.email "51133872+Alex7k@users.noreply.github.com"
+git config --global core.editor "vim"
+
+# install oh my zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#clone plugin repos
+
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  # (auto suggestions)
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  # (coloring for syntax, unknown command will show red before you even press enter)
+git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
+  # ("You should use ..." to help learn aliases)
+
+# copy .zshrc (it configures those previously cloned plugin repos to work and changes the theme to 'af-magic'. I might make my own theme soon)
+cp ./.zshrc ~/.zshrc -f
+source ~/.zshrc # re-source
+
+#### Customizing shell look:
+##### Download 'RobotoMono NerdFont Mono' (https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/RobotoMono.zip) or any other NerdFont from https://www.nerdfonts.com/font-downloads
+#####   Extract that zip and move all the font files within to ~/.local/share/fonts/ (you can use ~/.fonts but it's deprecated and not recommended)
+##### On your shell GUI preferences page, set cursor type to underline, background color to black and set the font to the one you just installed (It's important that you choose a monospace variant)
+
