@@ -21,6 +21,8 @@ git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/
 # copy .zshrc (it configures those previously cloned plugin repos to work and changes the theme to 'af-magic'. I might make my own theme soon)
 cp ./.zshrc ~/.zshrc -f
 source ~/.zshrc # re-source
+sudo chsh -s $(which zsh) # set zsh as default shell.
+#If it doesnt work: On mint, right click the terminal app icon, go to preferences, command, check 'Run a custom command instead of my shell' and set 'Custom command' to "zsh"
 
 #### Customizing shell look:
 ##### Download 'RobotoMono NerdFont Mono' (https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/RobotoMono.zip) or any other NerdFont from https://www.nerdfonts.com/font-downloads
