@@ -5,7 +5,7 @@ sudo apt install -y $(grep -vE '^\s*(#|$)' ./packages.txt) # fancy way to instal
 
 git config --global user.name "Alex7k"
 git config --global user.email "51133872+Alex7k@users.noreply.github.com"
-git config --global core.editor "vim"
+git config --global core.editor "nvim"
 
 # install oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

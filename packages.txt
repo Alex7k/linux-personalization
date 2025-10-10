@@ -1,4 +1,5 @@
 # write package names here
 git
 vim
+neovim
 zsh
