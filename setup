@@ -1,7 +1,7 @@
 sudo apt update
 sudo apt upgrade
 
-sudo apt install -y $(grep -vE '^\s*(#|$)' ./packages.txt) # fancy way to install all packages in ./packages.txt
+sudo apt install -y $(grep -vE '^\s*(#|$)' ./packages.txt) # installs all packages in ./packages.txt using apt
 
 git config --global user.name "Alex7k"
 git config --global user.email "51133872+Alex7k@users.noreply.github.com"
