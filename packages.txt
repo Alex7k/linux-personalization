@@ -3,3 +3,9 @@ git
 vim
 neovim
 zsh
+nmap
+ufw
+mpv
+catimg
+mpv
+# tailscale
