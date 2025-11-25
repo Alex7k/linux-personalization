@@ -5,6 +5,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 alias sa="sudo apt install -y"
 source <(fzf --zsh)
+alias ggr="git --no-pager log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
