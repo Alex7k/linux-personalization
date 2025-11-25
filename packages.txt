@@ -8,4 +8,5 @@ ufw
 mpv
 catimg
 mpv
+fzf
 # tailscale
