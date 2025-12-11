@@ -11,7 +11,75 @@ alias ggr="git --no-pager log --graph --abbrev-commit --decorate --format=format
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="af-magic"
+# ZSH_THEME="af-magic"
+# ZSH_THEME="alex"
+
+# --- Rainbow prompt
+# hex codes generated with python
+RAINBOW=(
+  "#ff0000"
+  "#ff1f00"
+  "#ff3f00"
+  "#ff5f00"
+  "#ff7f00"
+  "#ff9f00"
+  "#ffbf00"
+  "#ffdf00"
+  "#ffff00"
+  "#dfff00"
+  "#bfff00"
+  "#9fff00"
+  "#7fff00"
+  "#5fff00"
+  "#3fff00"
+  "#1fff00"
+  "#00ff00"
+  "#00ff1f"
+  "#00ff3f"
+  "#00ff5f"
+  "#00ff7f"
+  "#00ff9f"
+  "#00ffbf"
+  "#00ffdf"
+  "#00ffff"
+  "#00dfff"
+  "#00bfff"
+  "#009fff"
+  "#007fff"
+  "#005fff"
+  "#003fff"
+  "#001fff"
+  "#0000ff"
+  "#1f00ff"
+  "#3f00ff"
+  "#5f00ff"
+  "#7f00ff"
+  "#9f00ff"
+  "#bf00ff"
+  "#df00ff"
+  "#ff00ff"
+  "#ff00df"
+  "#ff00bf"
+  "#ff009f"
+  "#ff007f"
+  "#ff005f"
+  "#ff003f"
+  "#ff001f"
+)
+
+# persistent prompt_i
+if [[ -z ${prompt_i+x} ]]; then
+    export prompt_i=1
+fi
+
+precmd() {
+  PROMPT="%F{$RAINBOW[prompt_i]}%n@%m %F{blue}%~%f$ "
+  (( prompt_i++ ))
+  (( prompt_i > ${#RAINBOW[@]} )) && prompt_i=1
+}
+# ---
+
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -29,7 +97,7 @@ ZSH_THEME="af-magic"
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
 # zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
 # zstyle ':omz:update' frequency 13
