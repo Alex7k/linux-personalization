@@ -13,8 +13,8 @@ curl -fsSL https://get.docker.com | sudo sh
 
 # install oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#clone plugin repos
 
+# clone plugin repos
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   # (auto suggestions)
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -22,7 +22,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
   # ("You should use ..." to help learn aliases)
 
-# copy .zshrc (it configures those previously cloned plugin repos to work and changes the theme to 'af-magic'. I might make my own theme soon)
+# copy .zshrc (it configures those previously cloned plugin repos to work and adds some additional configurations)
 cp ./.zshrc ~/.zshrc -f
 source ~/.zshrc # re-source
 sudo chsh -s $(which zsh) # set zsh as default shell.
