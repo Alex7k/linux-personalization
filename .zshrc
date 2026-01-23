@@ -7,6 +7,7 @@ alias sa="sudo apt install -y"
 alias update="sudo apt update -y; sudo apt upgrade -y"
 source <(fzf --zsh)
 alias ggr="git --no-pager log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
+alias ff="fastfetch"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
