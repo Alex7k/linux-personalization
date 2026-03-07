@@ -9,4 +9,5 @@ mpv
 catimg
 mpv
 fzf
+htop
 # tailscale
