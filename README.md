@@ -16,9 +16,10 @@ I use this repository to document configurations that I like to apply on any lin
 
 ## Usage
 
+1. Clone to `/tmp` (because there's no user yet)
 1. Run user and SSH provisioning as root:
    `sudo bash ./setup-user-alex-and-ssh`
-2. Run workstation setup as your user:
+1. Run workstation setup as your user:
    `bash ./setup`
 
 Adjust `packages.txt` and `configs/ssh/alex_authorized_keys` as needed before running.
