@@ -16,7 +16,8 @@ I use this repository to document configurations that I like to apply on any lin
 
 ## Usage
 
-1. Clone to `/tmp` (because there's no user yet)
+1. `apt update; apt upgrade; apt install git`
+1. `git clone https://github.com/Alex7k/linux-personalization /tmp/linux-personalization && cd /tmp/linux-personalization`
 1. Run user and SSH provisioning as root:
    `sudo bash ./setup-user-alex-and-ssh`
 1. Run workstation setup as your user:
