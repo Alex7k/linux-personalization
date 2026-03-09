@@ -1,35 +1,5 @@
-sudo apt update
-sudo apt upgrade
+#!/usr/bin/env bash
+set -euo pipefail
 
-sudo apt install -y $(grep -vE '^\s*(#|$)' ./packages.txt) # installs all packages in ./packages.txt using apt
-
-git config --global user.name "Alex7k"
-git config --global user.email "51133872+Alex7k@users.noreply.github.com"
-git config set --global init.defaultBranch main
-git config --global core.editor "nvim"
-
-# install docker (including CLI and compose) automatically
-curl -fsSL https://get.docker.com | sudo sh
-
-# install oh my zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# clone plugin repos
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  # (auto suggestions)
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-  # (coloring for syntax, unknown command will show red before you even press enter)
-git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
-  # ("You should use ..." to help learn aliases)
-
-# copy .zshrc (it configures those previously cloned plugin repos to work and adds some additional configurations)
-cp ./.zshrc ~/.zshrc -f
-source ~/.zshrc # re-source
-sudo chsh -s $(which zsh) # set zsh as default shell.
-#If it doesnt work: On mint, right click the terminal app icon, go to preferences, command, check 'Run a custom command instead of my shell' and set 'Custom command' to "zsh"
-
-#### Customizing shell look:
-##### Download 'RobotoMono NerdFont Mono' (https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/RobotoMono.zip) or any other NerdFont from https://www.nerdfonts.com/font-downloads
-#####   Extract that zip and move all the font files within to ~/.local/share/fonts/ (you can use ~/.fonts but it's deprecated and not recommended)
-##### On your shell GUI preferences page, set cursor type to underline, background color to black and set the font to the one you just installed (It's important that you choose a monospace variant)
-
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+exec "${SCRIPT_DIR}/scripts/20-workstation-setup.sh" "$@"
