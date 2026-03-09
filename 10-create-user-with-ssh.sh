@@ -19,7 +19,8 @@ apt upgrade -y
 apt install -y sudo neovim openssh-server zsh
 
 if ! id -u "${USER_NAME}" >/dev/null 2>&1; then
-  adduser --gecos "" "${USER_NAME}"
+  # Non-interactive user creation; access is provided via SSH keys.
+  adduser --disabled-password --gecos "" "${USER_NAME}"
 fi
 
 usermod -aG sudo "${USER_NAME}"
@@ -43,3 +44,8 @@ fi
 systemctl enable --now "${SSH_SERVICE}"
 sshd -t
 systemctl reload "${SSH_SERVICE}"
+
+echo "You will now have to set the password for root"
+passwd root
+echo "You will now have to set the password for ${USER_NAME}"
+passwd "${USER_NAME}"
