@@ -5,8 +5,9 @@ I use this repository to document configurations that I like to apply on any lin
 ## Structure
 
 - `10-create-user-with-ssh.sh`: install user/SSH prerequisites (`sudo`, `neovim`, `openssh-server`), create/configure user `alex`, apply sudoers, install SSH authorized keys, and apply sshd hardening drop-in.
-- `20-user-configuration.sh`: install packages/tools, configure git, Docker, zsh plugins.
-- `30-tailscale.sh`: install/configure Tailscale.
+- `20-user-configuration.sh`: install packages/tools, configure git, zsh plugins.
+- `30-install-docker.sh`: install Docker.
+- `40-tailscale.sh`: install/configure Tailscale.
 - `configs/ssh/alex_authorized_keys`: pubkeys
 - `configs/ssh/99-custom.conf`: sshd settings overrides
 
@@ -18,7 +19,9 @@ I use this repository to document configurations that I like to apply on any lin
    `sudo bash ./10-create-user-with-ssh.sh`
 1. Run workstation setup as your user:
    `bash ./20-user-configuration.sh`
+1. Optional: install Docker:
+   `bash ./30-install-docker.sh`
 1. Optional: set up Tailscale:
-   `bash ./30-tailscale.sh`
+   `bash ./40-tailscale.sh`
 
 Adjust `packages.txt` and `configs/ssh/alex_authorized_keys` as needed before running.

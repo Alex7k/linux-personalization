@@ -20,7 +20,6 @@ git config --global user.email "51133872+Alex7k@users.noreply.github.com"
 git config --global init.defaultBranch main
 git config --global core.editor "nvim"
 
-curl -fsSL https://get.docker.com | sudo sh
 RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 mkdir -p "${ZSH_CUSTOM_DIR}/plugins"
