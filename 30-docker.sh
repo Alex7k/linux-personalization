@@ -7,3 +7,6 @@ if [[ "${EUID}" -eq 0 ]]; then
 fi
 
 curl -fsSL https://get.docker.com | sudo sh
+
+sudo usermod -aG docker "$USER"
+echo "Added $USER to docker group. Log out and back in for group changes to apply."
