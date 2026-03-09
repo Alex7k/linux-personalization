@@ -16,13 +16,14 @@ SSHD_DROPIN_DST="/etc/ssh/sshd_config.d/99-custom.conf"
 
 apt update
 apt upgrade -y
-apt install -y sudo neovim openssh-server
+apt install -y sudo neovim openssh-server zsh
 
 if ! id -u "${USER_NAME}" >/dev/null 2>&1; then
   adduser --gecos "" "${USER_NAME}"
 fi
 
 usermod -aG sudo "${USER_NAME}"
+usermod -s "$(command -v zsh)" "${USER_NAME}"
 echo "${USER_NAME} ALL=(ALL:ALL) NOPASSWD:ALL" > "/etc/sudoers.d/${USER_NAME}"
 chmod 0440 "/etc/sudoers.d/${USER_NAME}"
 visudo -cf "/etc/sudoers.d/${USER_NAME}"

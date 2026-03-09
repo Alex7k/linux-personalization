@@ -35,7 +35,6 @@ if [[ ! -d "${ZSH_CUSTOM_DIR}/plugins/you-should-use/.git" ]]; then
 fi
 
 cp "${REPO_ROOT}/.zshrc" "$HOME/.zshrc" -f
-sudo chsh -s "$(which zsh)"
 
 cat << 'EOM'
 Manual shell theming steps (if you have a desktop environment):
