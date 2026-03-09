@@ -1,0 +1,31 @@
+# Run this as root
+apt update
+apt upgrade -y
+apt install -y sudo neovim
+
+adduser alex
+usermod -aG sudo alex
+
+echo 'alex ALL=(ALL:ALL) NOPASSWD:ALL' > /etc/sudoers.d/alex
+chmod 0440 /etc/sudoers.d/alex
+visudo -cf /etc/sudoers.d/alex
+
+install -d -m 700 -o alex -g alex /home/alex/.ssh
+cat > /home/alex/.ssh/authorized_keys << 'EOF'
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINMuIDkuYCuXetNu0TwHbn0KWIL7D9cXYSXNGVM1FQAF alex-home-pc
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJqtNqVj50wgDM0EMStEjzKDODkSk27hHZ1xWMuNxIPI alex-office-pc
+EOF
+chown alex:alex /home/alex/.ssh/authorized_keys
+chmod 600 /home/alex/.ssh/authorized_keys
+
+install -d -m 755 /etc/ssh/sshd_config.d
+cat > /etc/ssh/sshd_config.d/99-custom.conf << 'EOF'
+PermitRootLogin no
+PubkeyAuthentication yes
+EOF
+sshd -t
+systemctl reload sshd
+
+# switch to alex
+su - alex
+ssh-keygen
