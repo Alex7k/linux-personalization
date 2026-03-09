@@ -1,4 +1,4 @@
-# write package names here
+### add apt packages here
 git
 vim
 neovim
