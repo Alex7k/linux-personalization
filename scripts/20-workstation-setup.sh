@@ -15,7 +15,7 @@ git config --global init.defaultBranch main
 git config --global core.editor "nvim"
 
 curl -fsSL https://get.docker.com | sudo sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 mkdir -p "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins"
 if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions/.git" ]]; then
