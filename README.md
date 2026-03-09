@@ -17,14 +17,14 @@ I use this repository to document configurations that I like to apply on any lin
 1. `git clone https://github.com/Alex7k/linux-personalization /tmp/linux-personalization && cd /tmp/linux-personalization`
 1. Run user and SSH provisioning as root:
    `sudo bash ./10-create-user-with-ssh.sh`
+1. Switch to your user: `su - alex`
+> [!IMPORTANT]
+> If you see the Zsh first-run wizard, press `q` to quit it and continue.
+> This repository configures Zsh for you.
 1. Run workstation setup as your user:
    `bash ./20-user-configuration.sh`
-
-   > [!IMPORTANT]
-   > If you see the Zsh first-run wizard, press `q` to quit it and continue (this repo configures Zsh for you)
-   > ![ZSH new user prompt](img/zsh_newuser_prompt.png)
 1. Optional: install Docker:
-   `bash ./30-install-docker.sh`
+   `bash ./30-docker.sh`
 1. Optional: set up Tailscale:
    `bash ./40-tailscale.sh`
 
