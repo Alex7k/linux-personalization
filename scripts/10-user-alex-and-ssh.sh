@@ -16,7 +16,7 @@ SSHD_DROPIN_DST="/etc/ssh/sshd_config.d/99-custom.conf"
 
 apt update
 apt upgrade -y
-apt install -y sudo neovim
+apt install -y sudo neovim openssh-server
 
 if ! id -u "${USER_NAME}" >/dev/null 2>&1; then
   adduser --gecos "" "${USER_NAME}"
@@ -32,9 +32,13 @@ install -m 600 -o "${USER_NAME}" -g "${USER_NAME}" "${KEYS_FILE}" "/home/${USER_
 
 install -d -m 755 /etc/ssh/sshd_config.d
 install -m 644 "${SSHD_DROPIN_SRC}" "${SSHD_DROPIN_DST}"
-sshd -t
+
 if systemctl list-unit-files | grep -q '^sshd\.service'; then
-  systemctl reload sshd
+  SSH_SERVICE="sshd"
 else
-  systemctl reload ssh
+  SSH_SERVICE="ssh"
 fi
+
+systemctl enable --now "${SSH_SERVICE}"
+sshd -t
+systemctl reload "${SSH_SERVICE}"
