@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [[ "${EUID}" -eq 0 ]]; then
+  echo "Do not run this script as root. Run it as your normal user."
+  exit 1
+fi
+
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 sudo apt update
 sudo apt upgrade -y
@@ -15,20 +21,20 @@ git config --global init.defaultBranch main
 git config --global core.editor "nvim"
 
 curl -fsSL https://get.docker.com | sudo sh
-RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-mkdir -p "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins"
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions/.git" ]]; then
-  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+mkdir -p "${ZSH_CUSTOM_DIR}/plugins"
+if [[ ! -d "${ZSH_CUSTOM_DIR}/plugins/zsh-autosuggestions/.git" ]]; then
+  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM_DIR}/plugins/zsh-autosuggestions"
 fi
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting/.git" ]]; then
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+if [[ ! -d "${ZSH_CUSTOM_DIR}/plugins/zsh-syntax-highlighting/.git" ]]; then
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM_DIR}/plugins/zsh-syntax-highlighting"
 fi
-if [[ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use/.git" ]]; then
-  git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use"
+if [[ ! -d "${ZSH_CUSTOM_DIR}/plugins/you-should-use/.git" ]]; then
+  git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM_DIR}/plugins/you-should-use"
 fi
 
-cp "${REPO_ROOT}/.zshrc" ~/.zshrc -f
+cp "${REPO_ROOT}/.zshrc" "$HOME/.zshrc" -f
 sudo chsh -s "$(which zsh)"
 
 cat << 'EOM'
