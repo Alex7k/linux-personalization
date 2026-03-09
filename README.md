@@ -19,6 +19,10 @@ I use this repository to document configurations that I like to apply on any lin
    `sudo bash ./10-create-user-with-ssh.sh`
 1. Run workstation setup as your user:
    `bash ./20-user-configuration.sh`
+
+   > [!IMPORTANT]
+   > If you see the Zsh first-run wizard, press `q` to quit it and continue (this repo configures Zsh for you)
+   > ![ZSH new user prompt](img/zsh_newuser_prompt.png)
 1. Optional: install Docker:
    `bash ./30-install-docker.sh`
 1. Optional: set up Tailscale:
