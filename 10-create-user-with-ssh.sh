@@ -9,7 +9,7 @@ fi
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${SCRIPT_DIR}"
 
-USER_NAME="alex"
+USER_NAME="node"
 KEYS_FILE="${REPO_ROOT}/configs/ssh/alex_authorized_keys"
 SSHD_DROPIN_SRC="${REPO_ROOT}/configs/ssh/99-custom.conf"
 SSHD_DROPIN_DST="/etc/ssh/sshd_config.d/99-custom.conf"
