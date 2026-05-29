@@ -26,5 +26,7 @@ I use this repository to document configurations that I like to apply on any lin
    `bash ./30-docker.sh`
 1. Optional: set up Tailscale:
    `bash ./40-tailscale.sh`
+1. Set hostname for the network to identify you
+   `sudo hostnamectl set-hostname CHANGEMEMYLINUX123`
 
 Adjust `packages.txt` and `configs/ssh/alex_authorized_keys` as needed before running.
