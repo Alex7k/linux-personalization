@@ -2,14 +2,14 @@
 set -euo pipefail
 
 if [[ "${EUID}" -ne 0 ]]; then
-  echo "Run this script as root."
-  exit 1
+  TARGET_USER="${USER_NAME:-$(id -un)}"
+  exec sudo env USER_NAME="${TARGET_USER}" bash "$0" "$@"
 fi
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${SCRIPT_DIR}"
 
-USER_NAME="node"
+USER_NAME="${USER_NAME:-node}"
 KEYS_FILE="${REPO_ROOT}/configs/ssh/alex_authorized_keys"
 SSHD_DROPIN_SRC="${REPO_ROOT}/configs/ssh/99-custom.conf"
 SSHD_DROPIN_DST="/etc/ssh/sshd_config.d/99-custom.conf"
@@ -23,14 +23,23 @@ if ! id -u "${USER_NAME}" >/dev/null 2>&1; then
   adduser --disabled-password --gecos "" "${USER_NAME}"
 fi
 
+USER_HOME="$(getent passwd "${USER_NAME}" | cut -d: -f6)"
 usermod -aG sudo "${USER_NAME}"
 usermod -s "$(command -v zsh)" "${USER_NAME}"
+if [[ ! -e "${USER_HOME}/.zshrc" ]]; then
+  install -m 644 -o "${USER_NAME}" -g "${USER_NAME}" /dev/null "${USER_HOME}/.zshrc"
+fi
+PASSWORD_STATUS="$(passwd -S "${USER_NAME}" | awk '{print $2}')"
+if [[ "${PASSWORD_STATUS}" != "P" ]]; then
+  echo "Set a password for ${USER_NAME}:"
+  passwd "${USER_NAME}"
+fi
 echo "${USER_NAME} ALL=(ALL:ALL) NOPASSWD:ALL" > "/etc/sudoers.d/${USER_NAME}"
 chmod 0440 "/etc/sudoers.d/${USER_NAME}"
 visudo -cf "/etc/sudoers.d/${USER_NAME}"
 
-install -d -m 700 -o "${USER_NAME}" -g "${USER_NAME}" "/home/${USER_NAME}/.ssh"
-install -m 600 -o "${USER_NAME}" -g "${USER_NAME}" "${KEYS_FILE}" "/home/${USER_NAME}/.ssh/authorized_keys"
+install -d -m 700 -o "${USER_NAME}" -g "${USER_NAME}" "${USER_HOME}/.ssh"
+install -m 600 -o "${USER_NAME}" -g "${USER_NAME}" "${KEYS_FILE}" "${USER_HOME}/.ssh/authorized_keys"
 
 install -d -m 755 /etc/ssh/sshd_config.d
 install -m 644 "${SSHD_DROPIN_SRC}" "${SSHD_DROPIN_DST}"
@@ -44,8 +53,3 @@ fi
 systemctl enable --now "${SSH_SERVICE}"
 sshd -t
 systemctl reload "${SSH_SERVICE}"
-
-echo "You will now have to set the password for root"
-passwd root
-echo "You will now have to set the password for ${USER_NAME}"
-passwd "${USER_NAME}"
