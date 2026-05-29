@@ -39,7 +39,18 @@ chmod 0440 "/etc/sudoers.d/${USER_NAME}"
 visudo -cf "/etc/sudoers.d/${USER_NAME}"
 
 install -d -m 700 -o "${USER_NAME}" -g "${USER_NAME}" "${USER_HOME}/.ssh"
-install -m 600 -o "${USER_NAME}" -g "${USER_NAME}" "${KEYS_FILE}" "${USER_HOME}/.ssh/authorized_keys"
+AUTHORIZED_KEYS="${USER_HOME}/.ssh/authorized_keys"
+touch "${AUTHORIZED_KEYS}"
+chown "${USER_NAME}:${USER_NAME}" "${AUTHORIZED_KEYS}"
+chmod 600 "${AUTHORIZED_KEYS}"
+while IFS= read -r key || [[ -n "${key}" ]]; do
+  [[ -z "${key}" ]] && continue
+  if ! grep -Fxq -- "${key}" "${AUTHORIZED_KEYS}"; then
+    printf '%s\n' "${key}" >> "${AUTHORIZED_KEYS}"
+  fi
+done < "${KEYS_FILE}"
+chown "${USER_NAME}:${USER_NAME}" "${AUTHORIZED_KEYS}"
+chmod 600 "${AUTHORIZED_KEYS}"
 
 install -d -m 755 /etc/ssh/sshd_config.d
 install -m 644 "${SSHD_DROPIN_SRC}" "${SSHD_DROPIN_DST}"
